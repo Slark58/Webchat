@@ -1,0 +1,84 @@
+.AuthForm {
+    width: 500px;
+    padding: 15px 10px 10px 15px;
+    background-color: #2f2f2f;
+    border-radius: 15px;
+    &__title {
+        color: white;
+    }
+    &__form {
+    }
+
+    &__wrapper {
+        position: relative;
+        margin-top: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    &__label {
+        color: rgb(222, 222, 222);
+    }
+
+    &__input {
+        padding: 5px 8px 5px 8px;
+        color: white;
+        font-size: 18px;
+        background-color: #5e5e5e;
+        border: 2px solid rgb(170, 170, 170);
+        border-radius: 5px;
+        &:focus {
+            border: 2px solid rgb(97, 97, 97);
+            box-shadow: 0px 0px 5px 2px rgb(139, 139, 139);
+            outline: none;
+        }
+    }
+    &__quastion {
+        margin-top: 10px;
+        color: rgb(170, 170, 170);
+        a {
+            text-decoration: none;
+            margin-left: 5px;
+            color: white;
+            &:hover {
+                color: rgb(196, 196, 196);
+            }
+        }
+    }
+
+    &__submitbtn {
+        display: block;
+        margin: 15px auto auto auto;
+        width: max-content;
+        font-size: 20px;
+        padding: 5px 5px 5px 5px;
+        color: white;
+        background-color: #5e5e5e;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+    }
+    &__vision {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        border-radius: 5px;
+        width: 30px;
+        height: 30px;
+        transition: background 0.3s;
+        cursor: pointer;
+        &:hover {
+            background: #4b4b4b;
+        }
+    }
+    &__respError {
+        margin-top: 10px;
+        text-align: center;
+        color: rgb(255, 94, 94);
+    }
+}
+.Form-error {
+    color: rgb(255, 94, 94);
+}
+

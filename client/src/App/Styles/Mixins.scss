@@ -1,0 +1,44 @@
+@mixin dark-color-scheme {
+    :root {
+        --body-bg: #202020;
+        --body-bg-hov: #414141;
+        --body-color: #fff;
+        --link-color: #5656dd;
+
+        // Header
+        --header-bg: #252525;
+
+        // Sidebar
+        --sidebar-bg: #2b2b2b;
+
+        // keyboard styles
+        --kb-color: rgba(255, 255, 255, 0.5);
+
+        // Buttons
+        --button-bg: #be5f5b;
+        --button-color: #fafafa;
+    }
+}
+//@ Light Theme mixin
+@mixin light-color-scheme {
+    :root {
+        --body-bg: #ffffffda;
+        --body-bg-hov: #dbdbdb;
+        --body-color: #373737;
+        --link-color: #000080;
+
+        // Header
+        --header-bg: #f1f1f1;
+
+        // Sidebar
+        --sidebar-bg: #e6e6e6;
+        --sidebar-color: #ffffff;
+
+        // keyboard styles
+        --kb-color: rgba(0, 0, 0, 0.5);
+
+        // Buttons
+        --button-bg: #be5f5b;
+        --button-color: #fafafa;
+    }
+}

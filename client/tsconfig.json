@@ -1,0 +1,53 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+
+    "baseUrl": "./",
+
+    "paths": {
+      "@/*": ["src/*"],
+      "@App/*": ["src/App/*"],
+      "@Styles/*": ["src/App/Styles/*"],
+      "@Components/*": ["src/Components/*"],
+      "@Pages/*": ["src/Pages/*"],
+      "@Utils/*": ["src/Utils/*"],
+      "@Hooks/*": ["src/Utils/Hooks/*"],
+      "@Services/*": ["src/Services/*"],
+      "@Imgs/*": ["src/assets/img/*"],
+      "@Icons/*": ["src/assets/icons/*"]
+    }
+
+  },
+  "include": [
+    "src/**/*",
+    "src/App/**/*",
+    "src/App/Styles/**/*",
+    "src/Layouts/**/*",
+    "src/Components/**/*",
+    "src/Pages/**/*",
+    "src/Utils/**/*",
+    "src/Utils/Hooks/**/*",
+    "src/Services/**/*",
+    "src/assets/img/**/*",
+    "src/assets/icons/**/*",
+  ],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}
