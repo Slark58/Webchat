@@ -1,2 +1,5 @@
 export {AuthForm} from './AuthForm/AuthForm'
 export {Loader} from './Loader/Loader'
+export {List} from './List/List'
+export {Burger} from './Burger/Burger'
+export {Menu} from './Menu/Menu'

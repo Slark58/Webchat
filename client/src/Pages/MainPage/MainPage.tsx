@@ -1,8 +1,13 @@
 import React from 'react'
 
+import './MainPage.scss'
+import Sidebar from '@/Layouts/Sidebar/Sidebar'
+
 const MainPage = () => {
   return (
-    <div>MainPage</div>
+    <div className='MainPage'>
+        <Sidebar/>
+    </div>
   )
 }
 

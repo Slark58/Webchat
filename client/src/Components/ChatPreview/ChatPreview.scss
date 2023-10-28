@@ -1,0 +1,35 @@
+
+.chatPreview {
+    height: 70px;
+    width: 100%;
+    border-radius: 15px;
+    &__wrapper {
+        display: flex;
+        justify-content: space-around;
+    }
+    &__avatar {
+    }
+
+    &__name {
+        font-size: 15px;
+        color: white;
+    }
+
+    &__status {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+    }
+
+    &:hover {
+        background-color: #2B2B2B;
+    }
+}
+
+.status-online {
+    background-color: rgb(104, 215, 56);
+}
+
+.status-offline {
+    background-color: gray;
+}
