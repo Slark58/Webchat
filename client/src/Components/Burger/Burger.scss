@@ -3,16 +3,15 @@
     flex-direction: column;
     justify-content: center;
     position: relative;
-    width: 64px;
-    height: 64px;
+    width: 45px;
+    height: 45px;
     padding: 0;
-    margin-left: auto;
+    border-radius: 50%;
     background-color: transparent;
     background-image: none;
-    border: 0;
-    border-radius: 0;
     cursor: pointer;
     &:hover  {
+        background-color: #2B2B2B;
         .burger__bar {
             background-color: goldenrod;
         }

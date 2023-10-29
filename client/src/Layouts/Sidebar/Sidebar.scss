@@ -1,10 +1,57 @@
 .sidebar {
     width: 30%;
     height: 100vh;
-    padding-left: 8px;
-    padding-right: 8px;
+    padding: 10px 8px 0 8px;
     background-color: #212121;
-
     &__wrapper {
     }
+
+    &__header {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 10px;
+
+        // span {
+        //     position: absolute;
+        //     top: 0;
+        //     left: 0;
+        // }
+
+        &-search {
+            position: relative;
+            width: 100%;
+
+            &-input {
+                height: 40px;
+                width: 100%;
+                padding-left: 45px;
+                color: white;
+                border-radius: 25px;
+                border: 1px solid #272727;
+                background-color: #181818;
+                font-size: 16px;
+            }
+
+            
+            &:focus {
+                outline: none;
+                border: 1px solid goldenrod;
+                
+            }
+            
+        }
+    }
+}
+
+
+.search-icon {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translate(0, -50%);
+    width: 20px;
+    height: 20px;
+    color: goldenrod;
 }
