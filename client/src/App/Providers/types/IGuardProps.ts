@@ -1,5 +1,7 @@
-import { type ReactElement } from 'react'
+import { ReactNode, type ReactElement } from 'react'
 
 export type IGuardProps = {
-    children: ReactElement
+    children?: ReactNode
+    isAuth?: boolean
+    path?: string
 }

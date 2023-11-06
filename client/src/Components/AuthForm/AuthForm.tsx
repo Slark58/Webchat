@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import { Link, useNavigate } from 'react-router-dom';
 import { Paths } from '@/App/Routes/types/Paths';
-import { usePasswordVision } from '@/Utils/Hooks/usePasswordVision';
+import { usePasswordVision } from '@/Utils';
 import { useAuth } from '@/Stores/userStore';
 
 import './AuthForm.scss';
@@ -18,6 +18,7 @@ export type FormValues = {
   email: string;
   password: string;
 };
+
 
 const AuthForm: FC<AuthFormProps> = ({ isSignup }) => {
   const { handleVision, vision } = usePasswordVision();
@@ -36,23 +37,24 @@ const AuthForm: FC<AuthFormProps> = ({ isSignup }) => {
   } = useForm<FormValues>({ mode: 'onSubmit' });
 
   const onSubmit = async ({ email, password, username }: FormValues) => {
-    if (isSignup) {
-      const ok = await setRegister({ email, password, username });
-      if (ok && !error) {
-        navigate(Paths.Login);
-      }
-    } else {
-      const ok = await setLogin({ email, password });
-      if (ok && !error) {
-        navigate(Paths.Home);
+      if (isSignup) {
+        const user = await setRegister({ email, password, username });
+        if (user && !error) {
+          navigate(Paths.Login);
+        }
+      } else {
+        const user = await setLogin({ email, password });
+        if (user && !error) {
+          navigate(Paths.Home);
+        }
       }
     }
-  };
 
   return (
     <div className='AuthForm'>
       <form className='AuthForm__form' onSubmit={handleSubmit(onSubmit)}>
         <h1 className='AuthForm__title'>{isSignup ? 'Signup' : 'Login'}</h1>
+        
         {/* Username */}
 
         {isSignup && (

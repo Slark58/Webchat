@@ -3,14 +3,14 @@ import React, { ReactNode } from 'react'
 
 interface IListProps<T> {
     data: T[],
-    maaperData: (data: T, i: number) => ReactNode
+    mapperData: (data: T, i: number) => ReactNode
 }
 
-function List<T>({data, maaperData}: IListProps<T>) {
+function List<T>({data = [], mapperData}: IListProps<T>) {
 
   return (
     <>
-        {data.map(maaperData)}
+        {data.map(mapperData)}
     </>
   )
 }

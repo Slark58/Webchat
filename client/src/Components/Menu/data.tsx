@@ -1,26 +1,23 @@
 import { ReactNode } from "react";
 import { Paths } from "@/App/Routes/types/Paths";
+import { Settings, UserCircle } from "lucide-react";
 
 export type TLink = {
     path: string,
-    icon: ReactNode,
     label: string,
+    icon: ReactNode,
 }
 
 export const links: TLink[] = [
     {
         path: Paths.Home, 
-        label: 'Настройки', 
-        icon: <UserCircle />,
-    },
-    {
-        path: Paths.Home, 
         label: 'Аккаунт', 
-        icon: <Settings />
+        icon: <UserCircle  className="menu__icon-img" />,
     },
     {
         path: Paths.Home, 
-        label: 'Лупень', 
-        icon: <UserCircle />
+        label: 'Настройки', 
+        icon: <Settings className="menu__icon-img"/>
     },
+
 ]

@@ -5,42 +5,34 @@
     background-color: #212121;
     &__wrapper {
     }
-
     &__header {
         display: flex;
         justify-content: flex-start;
         align-items: center;
         gap: 10px;
         margin-bottom: 10px;
-
-        // span {
-        //     position: absolute;
-        //     top: 0;
-        //     left: 0;
-        // }
-
         &-search {
             position: relative;
             width: 100%;
-
             &-input {
                 height: 40px;
                 width: 100%;
                 padding-left: 45px;
+                padding-right: 45px;
                 color: white;
                 border-radius: 25px;
                 border: 1px solid #272727;
                 background-color: #181818;
                 font-size: 16px;
+                transition: border 0.3s  ease-out;
+                &:focus {
+                    outline: none;
+                    border: 1px solid goldenrod;
+                    ~ .search-icon {
+                        color: goldenrod;
+                    }
+                }
             }
-
-            
-            &:focus {
-                outline: none;
-                border: 1px solid goldenrod;
-                
-            }
-            
         }
     }
 }
@@ -53,5 +45,35 @@
     transform: translate(0, -50%);
     width: 20px;
     height: 20px;
-    color: goldenrod;
+    color: grey;
+    transition: color 0.3s;
+}
+
+.close-btn {
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    top: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    right: 2px;
+    transform: translate(0, -50%);
+    color: grey;
+    transition: color 0.3s;
+    border-radius: 50%;
+    cursor: pointer;
+    svg {
+        width: 50%;
+        height: 50%;
+    }
+
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.425);
+    }
+
+}
+
+.close-btn-none {
+    display: none;
 }
