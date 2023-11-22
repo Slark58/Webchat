@@ -1,0 +1,26 @@
+.pageheader {
+    display: flex;
+    gap: 30px;
+    &__link {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color:  grey;
+        border-radius: 50%;
+        &:hover  {
+            background-color: rgba(0, 0, 0, 0.425);
+            color: goldenrod;
+        }
+    }
+    
+    &__title {
+        color: white;
+    }
+    hr {
+        margin-top: 5px;
+        height: 1px;
+        color: white;
+    }
+}

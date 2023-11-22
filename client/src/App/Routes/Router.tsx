@@ -1,10 +1,8 @@
-import { useEffect, useState } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 import { Paths } from './types/Paths';
 import { AuthGuard } from '../Providers/AuthGuard';
-import { AuthPage, MainPage } from '@/Pages';
+import { AccauntPage, AuthPage, FriendsPage, MainPage, SettingsPage } from '@/Pages';
 import { useAuth } from '@/Stores/userStore';
-
 
 const Router = () => {
   const setChaekAuth = useAuth(state => state.setChaekAuth)
@@ -27,7 +25,22 @@ const Router = () => {
                 {
                   path: Paths.Home,
                   element: <MainPage/>,
-                }
+                  children: [
+                    {
+                      path: Paths.Account,
+                      element: <AccauntPage/>
+                    },
+                    {
+                      path: Paths.Friends,
+                      element: <FriendsPage/>
+                    },
+                    {
+                      path: Paths.Settings,
+                      element: <SettingsPage/>
+                    } 
+                  ]
+                },
+                
             ]
           },
     ]);

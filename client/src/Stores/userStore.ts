@@ -5,16 +5,11 @@ import { devtools } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
 import jwt_decode  from 'jwt-decode'
 import { AxiosError, isAxiosError } from "axios";
-
-type AuthErrorType = {
-    status: string;
-    message: string;
-    type: string;
-    errors: string[];
-  };
+import { AuthErrorType } from "@/Utils/Types/types";
   
 
 export type User = {
+    id: number
     username?: string,
     email: string,
     password: string

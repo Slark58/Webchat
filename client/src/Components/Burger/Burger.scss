@@ -21,7 +21,7 @@
         width: 20px;
         height: 2px;
         margin: 0 auto;
-        background-color: gold;
+        background-color: #AAAAAA;
         border-radius: 1px;
         opacity: 0.7;
         transition: all 0.15s;
@@ -35,13 +35,16 @@
 
 .burger.open .burger__bar{ &:nth-child(1) {
     transform: rotate(45deg);
+    background-color: goldenrod;
     width: 25px;
 }
 }
 .burger.open .burger__bar{&:nth-child(2) {
+    background-color: goldenrod;
     opacity: 0;
 }}
 .burger.open .burger__bar{&:nth-child(3) {
+    background-color: goldenrod;
     margin-top: -9px;
     width: 25px;
     transform: rotate(-45deg);

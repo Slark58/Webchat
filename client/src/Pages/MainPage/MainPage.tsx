@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react'
 import Sidebar from '@/Layouts/Sidebar/Sidebar'
-import './MainPage.scss'
 import { useSocket } from '@/Utils'
+import './MainPage.scss'
+import { SlideSidebar } from '@/Components'
+import { Outlet } from 'react-router-dom'
 
 const MainPage = () => {
 

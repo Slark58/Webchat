@@ -1,2 +1,5 @@
 export {AuthPage} from './AuthPage/AuthPage'
 export {MainPage} from './MainPage/MainPage'
+export {AccauntPage} from './AccauntPage/AccauntPage'
+export {FriendsPage} from './FriendsPage/FriendsPage'
+export {SettingsPage} from './SettingsPage/SettingsPage'

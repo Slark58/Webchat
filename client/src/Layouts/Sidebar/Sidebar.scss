@@ -1,8 +1,10 @@
 .sidebar {
+    position: relative;
     width: 30%;
     height: 100vh;
     padding: 10px 8px 0 8px;
     background-color: #212121;
+    overflow: hidden;
     &__wrapper {
     }
     &__header {

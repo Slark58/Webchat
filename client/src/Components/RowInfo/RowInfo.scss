@@ -1,0 +1,33 @@
+.row {
+    &__info {
+        border-radius: 15px;
+        display: flex;
+        gap: 30px;
+        padding: 5px 0 5px 10px;
+        align-items: center;
+        transition: all 0.2s;
+        user-select: none;
+        &:hover {
+            background: rgba(0, 0, 0, 0.178);
+        }
+    }
+
+    &__info-icon {
+        height: 24px;
+        color: gray;
+    }
+
+    &__info-wrap {
+
+    }
+
+    &__info-title {
+        color: rgb(212, 212, 212);
+        font-weight: 700;
+        font-size: 18px;
+    }
+
+    &__info-subtitle {
+        color: gray;
+    }
+}

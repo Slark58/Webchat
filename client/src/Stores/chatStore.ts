@@ -3,45 +3,69 @@ import { devtools } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
 import { AxiosError, isAxiosError } from "axios";
 import { $host } from "@/Services/http/axios";
+import { User } from "./userStore";
+import { AuthErrorType } from "@/Utils/Types/types";
 
-type AuthErrorType = {
-    status: string;
-    message: string;
-    type: string;
-    errors: string[];
-  };
+
   
-
+export type Query = {
+      query: string
+  } 
 export type Chat = {
-    name: string
-} 
+      query?: string | number
+      candidates: User[]
+  } 
 
 interface IChatStore {
-    chats: Chat[]
+    myChats: User[],
+    potentialChats:  User[],
     error: string,
-    isLoading: boolean,
-    getChats: ({name}: Chat) => void
+    isChatLoading: boolean,
+    getChats: ({query}: Query ) => void
+    addChat: (id: number) => void
 }
 
 
 
-export const useAuth = create<IChatStore>()(devtools(immer((set) => ({
-    chats: [],
+export const useChat = create<IChatStore>()(devtools(immer((set) => ({
+    myChats: [],
+    potentialChats: [],
     error: '',
-    isLoading: false,
+    isChatLoading: false,
 
-    getChats: async ({name}) => {
+    getChats: async ({query}) => {
+            if (!query) {
+                set({potentialChats: []})
+                return
+            }
             try {
-                set({isLoading: true})
-                const {data} = await $host.post<Chat[]>('api/chats', {name})
-                set({chats: data})   
+                set({isChatLoading: true})
+                const {data} = await $host.get<Chat>(`api/chat/search?username=${query}`)
+                set({potentialChats: data.candidates})   
             } catch (error) {
                 if (isAxiosError(error)) {
                     const err: AxiosError<AuthErrorType> = error
                     set({error: err.response?.data.message})
                 }
             } finally {
-                set({isLoading: false})
+                set({isChatLoading: false})
+                setTimeout(() => set({error: ''}), 2000)
+            }
+        },
+
+    addChat: async (id: number) => {
+            try {
+                set({isChatLoading: true})
+                const {data} = await $host.post('api/chat/addchat', {id})
+                console.log(data);
+            } catch (error) {
+                if (isAxiosError(error)) {
+                    const err: AxiosError<AuthErrorType> = error
+                    set({error: err.response?.data.message})
+                }
+            } finally {
+                set({isChatLoading: false})
+                setTimeout(() => set({error: ''}), 2000)
             }
         },
     })

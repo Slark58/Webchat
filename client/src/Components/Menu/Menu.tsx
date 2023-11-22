@@ -1,11 +1,10 @@
-import React, { FC, useState } from 'react'
+import { FC } from 'react'
 import { Link } from 'react-router-dom'
-
 import { TLink } from './data'
 import { List } from '..'
-import './Menu.scss'
 import { LogOut } from 'lucide-react'
 import { useAuth } from '@/Stores/userStore'
+import './Menu.scss'
 
 type TMenu = {
     isOpen: boolean

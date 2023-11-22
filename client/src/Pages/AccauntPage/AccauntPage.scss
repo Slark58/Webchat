@@ -1,0 +1,13 @@
+
+.AccauntPage {
+
+    height: 100%;
+    // overflow-y: scroll;
+    &__wrapper {
+        padding: 10px;
+        height: 100%;
+    }
+    &__info {
+        margin-top: 10px;
+    }
+}

@@ -45,6 +45,11 @@ class UserController {
         const token = generateJwt(req.user.id, req.user.email, req.user.username, req.user.role)
         return res.json({token})
     }
+
+
+    // async makeFriendship(req, res, next) {
+    //     const 
+    // }
 }
 
 module.exports = new UserController()

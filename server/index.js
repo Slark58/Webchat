@@ -5,7 +5,9 @@ const models = require('./models/models')
 const cors = require('cors')
 const router = require('./routes/index')
 const errorHandler = require('./middleware/ErrorHandlingMiddleware')
+const authenticateSocket = require('./middleware/authenticateSocket')
 const http = require('http')
+const jwt = require('jsonwebtoken');
 const { Server } = require('socket.io')
 
 const PORT = process.env.PORT || 5000
@@ -16,9 +18,6 @@ app.use(cors({
     origin: '*'
 }))
 app.use(express.json())
-app.use('/api', router)
-
-
 const server = http.createServer(app)
 const io = new Server(server, {
     cors: {
@@ -26,16 +25,38 @@ const io = new Server(server, {
         method: ["GET", "POST"],
     } 
 })
+app.use('/api', router)
+app.use(errorHandler)
+io.use(authenticateSocket)
 
-// app.get('/io', (req, res) => {
-//     res.json('hi')
-// })
 
 io.on('connection', (socket) => {
     console.log(socket.id);
 });   
 
-app.use(errorHandler)
+
+// io.use(async (socket, next) => {
+
+//     // Здесь для Socket.IO нет заголовков, поэтому передаем токен через параметры запроса (например, socket.handshake.query.token)
+//     const token = socket.handshake.auth.token;
+//     if (token) {
+//         console.log('token io:', token);
+//         // Проверяем и верифицируем токен
+//         jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
+//             if (err) {
+//                 // Если токен не прошел верификацию, вызываем ошибку или выполняем другие действия
+//                 return next(new Error('Invalid token'));
+//             }
+//             // Если токен верен, можно сохранить раскодированные данные в объекте сокета для дальнейшего использования
+//             socket.decoded = decoded;
+//             next(); // Продолжаем работу с сокетом
+//         });
+//     } else {
+//         console.log('lox');
+//         // Если токен отсутствует, вызываем ошибку
+//         next(new Error('Token is not provided'));
+//     }
+// });
 
 const start = async () => {
     try {

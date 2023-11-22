@@ -23,6 +23,10 @@ const Message = sequelize.define('message', {
     content: {type: DataTypes.STRING},
 })
 
+const FriendShips = sequelize.define('friend_ships', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    accepted: {type: DataTypes.BOOLEAN, defaultValue: "false"},
+})
 
 User.hasMany(ChatMembers)
 ChatMembers.belongsTo(User)
@@ -36,10 +40,22 @@ Message.belongsTo(User)
 Chat.hasMany(Message)
 Message.belongsTo(Chat)
 
+User.belongsToMany(User, {
+    as: 'Sender',
+    foreignKey: 'senderId',
+    through: FriendShips
+});
+
+User.belongsToMany(User, {
+    as: 'Receiver',
+    foreignKey: 'receiverId',
+    through: FriendShips
+});
 
 module.exports = {
     User,
     ChatMembers,
     Chat,
-    Message
+    Message,
+    FriendShips
 }
