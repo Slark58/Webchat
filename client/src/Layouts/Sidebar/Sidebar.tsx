@@ -4,7 +4,7 @@ import { Search, X } from 'lucide-react';
 import { links } from '@/Components/Menu/data';
 import { useDebounce } from '@/Utils/Hooks/useDebounce';
 import { useChat } from '@/Stores/chatStore';
-import { User } from '@/Stores/userStore';
+import { User, useAuth } from '@/Stores/userStore';
 import { Outlet } from 'react-router-dom';
 
 import './Sidebar.scss';
@@ -14,8 +14,11 @@ const Sidebar = () => {
   const [visionMenu, setVisionMenu] = useState<boolean>(false);
   const [value, setValue] = useState<string>('');
   const query = useDebounce(value)
-  
+
+  const user = useAuth(state => state.user)
+
   const myChats = useChat(state => state.myChats)
+  const setMakeFriendship = useChat(state => state.setMakeFriendship)
   const potentialChats = useChat(state => state.potentialChats)
   const isChatLoading = useChat(state => state.isChatLoading)
   const error = useChat(state => state.error)
@@ -71,7 +74,7 @@ const Sidebar = () => {
               name={item.username}
               render={() => (
                 potentialChats.length ? (
-                  <button onClick={() => addChat(item.id)} className="chatPreview__addBtn">
+                  <button onClick={() => setMakeFriendship(item.id, user.id)} className="chatPreview__addBtn">
                     +Add
                   </button>
                 ) : null

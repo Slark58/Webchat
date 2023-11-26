@@ -9,9 +9,9 @@ interface IListProps<T> {
 function List<T>({data = [], mapperData}: IListProps<T>) {
 
   return (
-    <>
+    <div>
         {data.map(mapperData)}
-    </>
+    </div>
   )
 }
 

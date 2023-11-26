@@ -20,6 +20,7 @@ interface IAuthStore {
     user: User,
     error: string,
     isLoading: boolean,
+    make: User[],
     setAuth: (bool: boolean) => void,
     setUser: (user: User | undefined) => void,
     setRegister: ({email, password, username}: FormValues) => Promise<User | undefined>,
@@ -35,6 +36,7 @@ export const useAuth = create<IAuthStore>()(devtools(immer((set) => ({
     user: {} as User,
     error: '',
     isLoading: false,
+    make: [],
 
     setAuth: (bool) => set({isAuth: bool}),
     setUser: (user) => set({user: user, isAuth: true}),
@@ -112,6 +114,7 @@ export const useAuth = create<IAuthStore>()(devtools(immer((set) => ({
             setTimeout(() => set({error: ''}), 5000)
         }
     },
+
     })
 )))
 

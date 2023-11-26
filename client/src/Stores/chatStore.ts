@@ -23,6 +23,7 @@ interface IChatStore {
     isChatLoading: boolean,
     getChats: ({query}: Query ) => void
     addChat: (id: number) => void
+    setMakeFriendship: (receiverId: number, senderId: number) => void
 }
 
 
@@ -41,7 +42,7 @@ export const useChat = create<IChatStore>()(devtools(immer((set) => ({
             try {
                 set({isChatLoading: true})
                 const {data} = await $host.get<Chat>(`api/chat/search?username=${query}`)
-                set({potentialChats: data.candidates})   
+                set({potentialChats: data.candidates})  
             } catch (error) {
                 if (isAxiosError(error)) {
                     const err: AxiosError<AuthErrorType> = error
@@ -68,6 +69,22 @@ export const useChat = create<IChatStore>()(devtools(immer((set) => ({
                 setTimeout(() => set({error: ''}), 2000)
             }
         },
+
+
+        setMakeFriendship: async (receiverId, senderId) => {
+            set({isChatLoading: true})
+            try {
+                const {data} = await $host.post('api/chat/friend', {receiverId, senderId})
+                console.log(data)
+            } catch (error) {
+                if (isAxiosError(error)) {
+                    const err: AxiosError<AuthErrorType> = error
+                    set({error: err.response?.data.message})
+                }
+            } finally {
+                set({isChatLoading: false})
+            }
+        }
     })
 )))
 

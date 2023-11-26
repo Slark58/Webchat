@@ -27,12 +27,9 @@ const io = new Server(server, {
 })
 app.use('/api', router)
 app.use(errorHandler)
-io.use(authenticateSocket)
+// io.use((socket, next) => authenticateSocket(socket, next))
 
 
-io.on('connection', (socket) => {
-    console.log(socket.id);
-});   
 
 
 // io.use(async (socket, next) => {
@@ -57,6 +54,11 @@ io.on('connection', (socket) => {
 //         next(new Error('Token is not provided'));
 //     }
 // });
+
+io.on('connection', (socket) => {
+    console.log(socket.id);
+});   
+
 
 const start = async () => {
     try {

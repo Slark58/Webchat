@@ -1,9 +1,9 @@
 const ApiError = require('../error/ApiError');
-const {Chat, User, ChatMembers} = require('../models/models')
+const {Chat, User, ChatMembers, FriendShips} = require('../models/models')
 
 
 class CahatController {
-
+    
     async getChats(req, res, next) {
         const username = req.query.username
         console.log(username);
@@ -14,6 +14,14 @@ class CahatController {
         return res.json({candidates})
     }
 
+    async makeFriendship(req, res, next) {
+        const {receiverId, senderId} = req.body
+        const friendShip = await FriendShips.create({senderId, receiverId})
+        return res.json({friendShip})
+    }
+
+
+
     async addChats(req, res, next) {
         const id = req.body.id;
         // const chat  = Chat.create({})
@@ -21,6 +29,8 @@ class CahatController {
         console.log('Тело запроса:', req.body);
         res.send('Получен POST запрос');
     }
+
+        
 
     
 }
