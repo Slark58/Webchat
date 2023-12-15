@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { Paths } from "@/App/Routes/types/Paths";
-import { Settings, UserCircle, Users2 } from "lucide-react";
+import { MailQuestion, Settings, UserCircle, Users2 } from "lucide-react";
 
 export type TLink = {
     path: string,
@@ -18,6 +18,11 @@ export const links: TLink[] = [
         path: Paths.Friends,
         label: 'Друзья', 
         icon: <Users2  className="menu__icon-img" />,
+    },
+    {
+        path: Paths.Request,
+        label: 'Заявки', 
+        icon: <MailQuestion  className="menu__icon-img" />,
     },
     {
         path: Paths.Settings, 

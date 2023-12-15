@@ -1,0 +1,112 @@
+.requestsPage {
+    height: 100%;
+    
+    &__wrapper {
+        padding: 10px;
+        height: 100%;
+        hr {
+            margin-top: 5px;
+            height: 1px;
+            color: white;
+        }
+    }
+
+    &__header {
+        display: flex;
+        gap: 30px;
+        color: white;
+    }
+    &__back {
+
+    }
+    &__cancel {
+        padding: 10px 20px;
+        background-color: transparent;
+        border: 2px solid red;
+        border-radius: 15px;
+        font-size: 14px;
+        color: red;
+        transition: all 0.2s ease-in-out;
+        cursor: pointer;
+        &:hover {
+            background-color: red;
+            color: aliceblue;
+        }
+    }
+    &__accept {
+        padding: 10px 20px;
+        background-color: transparent;
+        border: 2px solid greenyellow;
+        border-radius: 15px;
+        font-size: 14px;
+        color: greenyellow;
+        transition: all 0.2s ease-in-out;
+        cursor: pointer;
+        &:hover {
+            background-color: greenyellow;
+            color: black;
+        }
+    }
+
+    &__empty {
+        height: 100%;
+        color: #9e9e9e;
+        display: flex;
+        font-size: 36px;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &__tabs {
+        margin-top: 10px;
+        height: 50px;
+        position: relative;
+        background-color: #161616;
+        border-radius: 15px;
+        display: flex;
+        z-index: 1;
+        text-align: center;
+        border: 2px solid #484848;
+        &-tab {
+            margin-top: 10px;
+            color: rgb(201, 201, 201);
+          
+        }
+        &-input {
+            display: none;
+        }
+        label {
+            border-radius: 15px;
+            cursor: pointer;
+            flex: 50%;
+            transition: background-color 0.3s ;
+            &:hover:not(.tab-active) {
+                background-color: #48484871;
+            }
+        }
+    }
+
+}
+
+.tab-active {
+    background-color: #484848;
+}
+// .start-home, label:nth-child(1):hover~.tab-animation {
+//     width: 140px;
+//     left: 0;
+//     background-color: rgba(255, 0, 0, 0.441);
+// }
+// .start, label:nth-child(2):hover~.tab-animation {
+//     width: 140px;
+//     left: 140px;
+//     background-color: rgba(255, 0, 0, 0.434);
+// }
+
+// .tab-animation {
+//     position: absolute;
+//     height: 100%;
+//     top: 0;
+//     z-index: 0;
+//     transition: all 0.5s ease 0s;
+//     border-radius: 15px;
+// }

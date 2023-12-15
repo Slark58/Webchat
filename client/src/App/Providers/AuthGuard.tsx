@@ -8,13 +8,14 @@ import { useAuth } from '@/Stores/userStore';
 const AuthGuard = () => {
     const isAuth = useAuth(state => state.isAuth)
     const isLoading = useAuth(state => state.isLoading)
+    
       if (isLoading) {
         return <div>loading...</div>
       } 
       if (isAuth) {
         return <Outlet/>
       } else {
-        return <Navigate to={Paths.Signup}/>
+        return <Navigate to={Paths.Login}/>
       }
       
 };

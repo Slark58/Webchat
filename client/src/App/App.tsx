@@ -1,12 +1,14 @@
 import { RouterProvider } from 'react-router-dom'
 import Router from './Routes/Router'
-
-import { useAuth } from '@/Stores/userStore'
-import { useEffect } from 'react'
+import { SocketProvaider } from './Providers/SocketProvaider'
 import './Styles/App.scss'
 
 function App() {
-  return <RouterProvider router={Router()}/>
+  return (
+    <SocketProvaider>
+      <RouterProvider router={Router()}/>
+    </SocketProvaider>
+  )
 }
 
 export default App

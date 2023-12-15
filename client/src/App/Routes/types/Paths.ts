@@ -4,5 +4,6 @@ export enum Paths {
   Settings = "/Settings",
   Login = "/Login",
   Signup = "/Signup",
-  Friends = "Friends",
+  Friends = "/Friends",
+  Request = "/Request",
 }

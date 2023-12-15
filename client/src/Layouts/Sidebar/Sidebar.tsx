@@ -7,34 +7,42 @@ import { useChat } from '@/Stores/chatStore';
 import { User, useAuth } from '@/Stores/userStore';
 import { Outlet } from 'react-router-dom';
 
+import { useFriends } from '@/Stores/friendsStore';
 import './Sidebar.scss';
+import { useSocket } from '@/App/Providers/SocketProvaider';
 
 const Sidebar = () => {
 
   const [visionMenu, setVisionMenu] = useState<boolean>(false);
   const [value, setValue] = useState<string>('');
   const query = useDebounce(value)
+  const {socket} = useSocket() 
+
+  const setMakeFriendship = useFriends(state => state.setMakeFriendship)
+  const searchingFriends = useFriends(state => state.searchingFriends)
+  const getFriends = useFriends(state => state.getFriends)
 
   const user = useAuth(state => state.user)
 
-  const myChats = useChat(state => state.myChats)
-  const setMakeFriendship = useChat(state => state.setMakeFriendship)
-  const potentialChats = useChat(state => state.potentialChats)
-  const isChatLoading = useChat(state => state.isChatLoading)
-  const error = useChat(state => state.error)
-  
-  const addChat = useChat(state => state.addChat)
-  const getChats = useChat(state => state.getChats)
+  const friends = useFriends(state => state.friends)
+  const isfriendLoading = useFriends(state => state.isFriendsLoading)
+  const error = useFriends(state => state.friendsError)  
+
   
   useEffect(() => {
-      getChats({query})
-  }, [query, getChats])
+    getFriends({query})
+  }, [query, getFriends])
 
+  // const makeFriendHandle = (receiverId: number, senderId: number) => {
+  //   socket?.on('makeFriend', () => {
+      
+  //   })
+  // }
 
   const clearInput = () => {
     setValue('');
   };
-
+  
   const toggleMenu = () => {
     setVisionMenu((visionMenu) => !visionMenu);
   };
@@ -65,15 +73,14 @@ const Sidebar = () => {
       </div>
       <div className='sidebar__wrapper'>
 
-        {isChatLoading && <Loader/>}
-
+        {isfriendLoading && <Loader/>}
         <List 
-          data={potentialChats.length ? potentialChats : myChats}
+          data={searchingFriends.length ? searchingFriends : friends}
           mapperData={(item: User, i: number) => (
             <ChatPreview
               name={item.username}
               render={() => (
-                potentialChats.length ? (
+                searchingFriends.length ? (
                   <button onClick={() => setMakeFriendship(item.id, user.id)} className="chatPreview__addBtn">
                     +Add
                   </button>

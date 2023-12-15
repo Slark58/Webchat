@@ -12,9 +12,8 @@ export type Query = {
       query: string
   } 
 export type Chat = {
-      query?: string | number
       candidates: User[]
-  } 
+} 
 
 interface IChatStore {
     myChats: User[],
@@ -69,7 +68,6 @@ export const useChat = create<IChatStore>()(devtools(immer((set) => ({
                 setTimeout(() => set({error: ''}), 2000)
             }
         },
-
 
         setMakeFriendship: async (receiverId, senderId) => {
             set({isChatLoading: true})

@@ -40,7 +40,7 @@ export const useAuth = create<IAuthStore>()(devtools(immer((set) => ({
 
     setAuth: (bool) => set({isAuth: bool}),
     setUser: (user) => set({user: user, isAuth: true}),
-    
+
 
     setRegister: async ({email, password, username}) => {
             try {
