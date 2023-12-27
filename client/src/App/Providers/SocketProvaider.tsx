@@ -21,6 +21,7 @@ export const SocketProvaider = ({children}: SocketProvaiderProps) => {
     const setAuth = useAuth((state) => state.setAuth)
     const isAuth = useAuth((state) => state.isAuth)
     
+    
     useEffect(() => {
         if (isAuth) {
             connectSocket()
@@ -37,9 +38,9 @@ export const SocketProvaider = ({children}: SocketProvaiderProps) => {
 
     const connectSocket = () => {
         if(!socket) {
-          const newSocket: Socket = io("http://localhost:5000")
-          setSocket(newSocket)
-          return
+            const newSocket: Socket = io("http://localhost:5000")
+            setSocket(newSocket)
+            return
         }
         socket.connect()
       }

@@ -21,22 +21,22 @@ const Sidebar = () => {
   const setMakeFriendship = useFriends(state => state.setMakeFriendship)
   const searchingFriends = useFriends(state => state.searchingFriends)
   const getFriends = useFriends(state => state.getFriends)
+  const searchingError = useFriends(state => state.searchingError)
 
   const user = useAuth(state => state.user)
 
   const friends = useFriends(state => state.friends)
   const isfriendLoading = useFriends(state => state.isFriendsLoading)
   const error = useFriends(state => state.friendsError)  
-
   
   useEffect(() => {
     getFriends({query})
+    console.log(socket?.id);
   }, [query, getFriends])
 
   // const makeFriendHandle = (receiverId: number, senderId: number) => {
-  //   socket?.on('makeFriend', () => {
-      
-  //   })
+  //   socket?.emit('make_friend', {receiverId, senderId})
+  //   console.log('aaa');
   // }
 
   const clearInput = () => {
@@ -91,7 +91,7 @@ const Sidebar = () => {
           )}
         />
       </div>
-      {value ? error && <div style={{color: "red"}}>{error}</div> : null}
+      {value ? searchingError && <div style={{color: "red"}}>{searchingError}</div> : null}
       <Menu data={links} toggleMenu={toggleMenu} isOpen={visionMenu} />
     </div>
   );

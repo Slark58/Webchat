@@ -6,7 +6,6 @@ export const registration = async (email: string, password: string, username: st
     return jwt_decode(data.token)
 }
 
-
 export const login = async (email: string, password: string) => {
     const {data} = await $host.post('api/user/login', {email, password})
     return jwt_decode(data.token)

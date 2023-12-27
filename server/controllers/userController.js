@@ -46,7 +46,6 @@ class UserController {
         return res.json({token})
     }
 
-
     // async makeFriendship(req, res, next) {
     //     const {userId, } = req.body
     // }

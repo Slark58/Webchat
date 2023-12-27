@@ -46,11 +46,13 @@ interface IFriendsStore {
     wannaBeFriends: User[]
     wannaBeFriendsError: string
     isWannaBeFriendsLoading: boolean
+    setSocketWannaBeFriends:(user: User) => void
     getFriendshipWannabes: (query: number) => void
 
     potentialFriends: User[]
     potentialFriendsError: string
     isPotentialFriendsLoading: boolean
+    setSocketPotentialFriends: (user: User) => void,
     setMakeFriendship: (receiverId: number, senderId: number) => void
 
     searchingFriends: User[]
@@ -58,6 +60,13 @@ interface IFriendsStore {
     isSearchingLoading: boolean
     getFriends: ({query}: {query: string} ) => void
 
+    isAcceptFriendshipLoading: boolean,
+    acceptFriendshipError: string,
+    acceptFriendship: (receiverId: number, senderId: number) => void
+
+    isRejectFriendshipLoading: boolean,
+    rejectFriendshipError: string,
+    rejectFriendship: (senderId: number, receiverId: number) => void
 }
 
 
@@ -78,6 +87,18 @@ export const useFriends = create<IFriendsStore>()(persist(devtools(immer((set) =
     searchingError: '',
     isSearchingLoading: false,
 
+    isAcceptFriendshipLoading: false,
+    acceptFriendshipError: '',
+    isRejectFriendshipLoading: false,
+    rejectFriendshipError: '',
+
+    setSocketPotentialFriends: (user) => {
+        set(state => state.potentialFriends.push(user))
+    },
+    setSocketWannaBeFriends: (user) => {
+        set(state => state.potentialFriends.push(user))
+    },
+
     getFriends: async ({query}) => {
         if (!query) {
             set({searchingFriends: []})
@@ -97,6 +118,7 @@ export const useFriends = create<IFriendsStore>()(persist(devtools(immer((set) =
             setTimeout(() => set({searchingError: ''}), 2000)
         }
     },
+   
     setMakeFriendship: async (receiverId, senderId) => {
         set({isPotentialFriendsLoading: true})
         try {
@@ -130,5 +152,36 @@ export const useFriends = create<IFriendsStore>()(persist(devtools(immer((set) =
         } finally {
             set({isWannaBeFriendsLoading: false})
         }
-    }
+    },
+
+    acceptFriendship: async (receiverId, senderId) => {
+        set({isAcceptFriendshipLoading: true})
+        try {
+            const {data} = await $host.post(`api/friend/accept`, {receiverId, senderId})
+            console.log('accept:', data);
+        } catch (error) {
+            if (isAxiosError(error)) {
+                const err: AxiosError<AuthErrorType> = error
+                set({acceptFriendshipError: err.response?.data.message})
+            }
+        } finally {
+            set({isAcceptFriendshipLoading: false})
+        }
+    },
+    rejectFriendship: async (senderId, receiverId) => {
+        set({isRejectFriendshipLoading: true})
+        try {
+            const {data} = await $host.post(`api/friend/reject`, {senderId, receiverId})
+            console.log('reject:', data);
+        } catch (error) {
+            if (isAxiosError(error)) {
+                const err: AxiosError<AuthErrorType> = error
+                set({acceptFriendshipError: err.response?.data.message})
+            }
+        } finally {
+            set({isRejectFriendshipLoading: false})
+        }
+    },
+
+
 }))), {name: 'storeFriends', version: 1}))

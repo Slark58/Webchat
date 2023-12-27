@@ -40,6 +40,16 @@ class FriendShipController {
         // const friendShip = await FriendShips.create({senderId, receiverId})
         return res.json({candidates})
     }
+    async acceptFriendship(req, res, next) {
+        const {receiverId, senderId} = req.body
+        const friendShip = await FriendShips.findOne({where: {receiverId, senderId}});
+        return res.json(friendShip)
+    }
+    async rejectFriendship(req, res, next) {
+        const {senderId, receiverId} = req.body
+        const friendShip = await FriendShips.findOne({where: {senderId,receiverId}});
+        return res.json(friendShip)
+    }
 }
 
 

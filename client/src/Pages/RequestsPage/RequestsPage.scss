@@ -20,11 +20,11 @@
 
     }
     &__cancel {
-        padding: 10px 20px;
+        padding: 7px 14px;
         background-color: transparent;
         border: 2px solid red;
         border-radius: 15px;
-        font-size: 14px;
+        font-size: 13px;
         color: red;
         transition: all 0.2s ease-in-out;
         cursor: pointer;
@@ -34,11 +34,11 @@
         }
     }
     &__accept {
-        padding: 10px 20px;
+        padding: 7px 14px;
         background-color: transparent;
         border: 2px solid greenyellow;
         border-radius: 15px;
-        font-size: 14px;
+        font-size: 13px;
         color: greenyellow;
         transition: all 0.2s ease-in-out;
         cursor: pointer;
@@ -87,7 +87,11 @@
     }
 
 }
-
+.flex-choice {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 .tab-active {
     background-color: #484848;
 }

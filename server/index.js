@@ -33,8 +33,22 @@ app.use(errorHandler)
 io.on('connection', (socket) => {
     console.log(socket.id);
 
-    // socket.on("friendshipCreated", (data) => {
-    //     console.log(data)
+    // socket.on('make_friend', async (id, {receiverId, senderId}) => {
+    //     try {
+    //         const friend = await models.User.findOne({where: {id: receiverId}, attributes: ['id', 'username']});
+    //         const me = await models.User.findOne({where: {id: senderId}, attributes: ['id', 'username']});
+    //         if (!friend) {
+    //             return next(ApiError.badRequest('Не удалось добавить пользователя'))
+    //         }
+    //         const friendShip = await models.FriendShips.create({senderId, receiverId})
+    //         console.log('friendShip', friendShip);
+
+    //         socket.broadcast.to(id).emit('friend_request_received', me);
+
+    //         io.to(socket.id).emit('friend_added', friend);
+    //     } catch (error) {
+    //         console.error('Error adding friend:', error);
+    //     }
     // })
 
 });   

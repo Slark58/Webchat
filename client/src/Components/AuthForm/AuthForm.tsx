@@ -128,16 +128,8 @@ const AuthForm: FC<AuthFormProps> = ({ isSignup }) => {
         )}
 
         <div>
-          <button
-            disabled={isLoading}
-            className='AuthForm__submitbtn'
-            type='submit'
-          >
-            {isLoading ? (
-              <Loader />
-            ) : (
-              <span>{isSignup ? 'Register' : 'Login'}</span>
-            )}
+          <button disabled={isLoading} className='AuthForm__submitbtn' type='submit'>
+            {isLoading ? (<Loader />) : (<span>{isSignup ? 'Register' : 'Login'}</span>)}
           </button>
 
           {error && <div className='AuthForm__respError'>{error}</div>}

@@ -6,5 +6,7 @@ router.get('/search', FriendShipController.getFriendByQuery)
 router.get('/getfriendship', FriendShipController.getFriendshipWannabe)
 
 router.post('/add', FriendShipController.makeFriendship)
+router.post('/accept', FriendShipController.acceptFriendship)
+router.post('/reject', FriendShipController.rejectFriendship)
 
 module.exports = router

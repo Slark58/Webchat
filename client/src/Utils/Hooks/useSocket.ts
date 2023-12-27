@@ -7,7 +7,6 @@ export const useSocket = () => {
     const setAuth = useAuth((state) => state.setAuth)
     const isAuth = useAuth((state) => state.isAuth)
     
-    
     useEffect(() => {
         if (isAuth) {
             socket.connect() 

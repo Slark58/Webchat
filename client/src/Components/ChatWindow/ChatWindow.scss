@@ -1,0 +1,107 @@
+.chatWindow {
+    scroll-behavior: smooth;
+    width: 100%;
+    height: 100vh;
+    overflow-y: scroll;
+    
+    &__wrapper {
+        margin: 0 auto;
+        width: 60%;
+        height: 100%;
+    }
+}
+.message {
+    padding: 10px 20px;
+    color: white;
+    margin-bottom: 5px;
+    border-radius: 15px;
+    width: max-content;
+
+}
+
+.my {
+    margin-left: auto;
+    background-color: rgb(186, 141, 27);
+}
+
+.not {
+    background-color: #363636;
+}
+
+.chatWrapper-block {
+    width: 100%;
+    position: sticky;
+    bottom: 0;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.chatWrapper-input {
+    height: 100%;
+    width: 80%;
+    input {
+        background-color: #363636;
+        padding-left: 25px;
+        padding-right: 25px;
+        font-size: 18px;
+        width: 100%;
+        border: none;
+        color: white;
+        height: 100%;
+        transition: 0.3s;
+        border-top: 1px solid #363636;
+        border-bottom: 1px solid #363636;
+        &:focus {
+            outline: none;
+        }
+    }
+}
+.chatWrapper-icons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 100%;
+    border-top-left-radius: 45px;
+    border-bottom-left-radius: 45px;
+    background-color: #363636;
+    border: 1px solid #363636;
+    cursor: pointer;
+}
+.chatWrapper-file {
+    width: 50px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top-right-radius: 45px;
+    border-bottom-right-radius: 45px;
+    background-color: #363636;
+    border: 1px solid #363636;
+    cursor: pointer;
+    input {
+        display: none;
+    }
+}
+
+.chatWrapper-file-icon {
+    height: 24px;
+}
+
+.chatWrapper-icons-smile {
+    color: gray;
+    transition: 0.3s color;
+    &:hover {
+        color: goldenrod;
+    }
+}
+
+.chatWrapper-icons-Paperclip {
+    color: gray;
+    transition: 0.3s color;
+    cursor: pointer;
+    &:hover {
+        color: goldenrod;
+    }
+}
