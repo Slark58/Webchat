@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { Burger, ChatPreview, List, Loader, Menu, SlideSidebar } from '@/Components';
+import { ChangeEvent, useCallback, useEffect, useState } from 'react';
+import { Burger, ChatPreview, FriendsAndSearchingList, List, Loader, Menu, SlideSidebar } from '@/Components';
 import { Search, X } from 'lucide-react';
 import { links } from '@/Components/Menu/data';
 import { useDebounce } from '@/Utils/Hooks/useDebounce';
@@ -10,86 +10,82 @@ import { Outlet } from 'react-router-dom';
 import { useFriends } from '@/Stores/friendsStore';
 import './Sidebar.scss';
 import { useSocket } from '@/App/Providers/SocketProvaider';
+import {SideBarHeader} from '../Header/SideBarHeader/SideBarHeader';
 
 const Sidebar = () => {
 
   const [visionMenu, setVisionMenu] = useState<boolean>(false);
   const [value, setValue] = useState<string>('');
+  // const [count, setCount] = useState<number>(0);
   const query = useDebounce(value)
   const {socket} = useSocket() 
 
   const setMakeFriendship = useFriends(state => state.setMakeFriendship)
   const searchingFriends = useFriends(state => state.searchingFriends)
-  const getFriends = useFriends(state => state.getFriends)
+  const getSearchingFriends = useFriends(state => state.getSearchingFriends)
   const searchingError = useFriends(state => state.searchingError)
 
-  const user = useAuth(state => state.user)
+  const userId = useAuth(state => state.user.id)
 
   const friends = useFriends(state => state.friends)
+  const getMyFriends = useFriends(state => state.getMyFriends)
   const isfriendLoading = useFriends(state => state.isFriendsLoading)
   const error = useFriends(state => state.friendsError)  
   
   useEffect(() => {
-    getFriends({query})
-    console.log(socket?.id);
-  }, [query, getFriends])
+    getSearchingFriends(query)
+    // console.log(socket?.id);
+  }, [query, getSearchingFriends])
+  
+  useEffect(() => {
+    getMyFriends(userId)
+  }, [])
 
   // const makeFriendHandle = (receiverId: number, senderId: number) => {
   //   socket?.emit('make_friend', {receiverId, senderId})
   //   console.log('aaa');
   // }
 
-  const clearInput = () => {
+  const handleAddFriend = (receiverId: number, senderId: number) => {
+    setMakeFriendship(receiverId, senderId)
+  }
+
+  const clearInput = useCallback(() => {
     setValue('');
-  };
+  }, []);
+
+  const handleChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value)
+  }, [])
   
-  const toggleMenu = () => {
+  const toggleMenu = useCallback(() => {
     setVisionMenu((visionMenu) => !visionMenu);
-  };
+  }, []);
   
   return (
     <div className='sidebar'>
+      
+      {/* <button onClick={() => setCount(state => state += 1)}>{count}</button> */}
       
       <SlideSidebar>
         <Outlet />
       </SlideSidebar>
 
-      <div className='sidebar__header'>
-        <Burger visionMenu={visionMenu} toggleMenu={toggleMenu} />
-        <div className='sidebar__header-search'>
-          <input
-            type='text'
-            value={value}
-            onChange={(e) => setValue(e.target.value)}
-            className='sidebar__header-search-input'
-          />
-          <Search className='search-icon' />
-          <div
-            className={value ? 'close-btn' : 'close-btn-none'}
-            onClick={clearInput}>
-            <X />
-          </div>
-        </div>
-      </div>
+      <SideBarHeader
+        value={value}
+        visionMenu={visionMenu}
+        clearInput={clearInput}
+        handleChange={handleChange}
+        toggleMenu={toggleMenu}
+      />
       <div className='sidebar__wrapper'>
-
         {isfriendLoading && <Loader/>}
-        <List 
-          data={searchingFriends.length ? searchingFriends : friends}
-          mapperData={(item: User, i: number) => (
-            <ChatPreview
-              name={item.username}
-              render={() => (
-                searchingFriends.length ? (
-                  <button onClick={() => setMakeFriendship(item.id, user.id)} className="chatPreview__addBtn">
-                    +Add
-                  </button>
-                ) : null
-              )} 
-              key={i}
-            />
-          )}
-        />
+        <FriendsAndSearchingList
+          friends={friends}
+          searchingFriends={searchingFriends}
+          handleAddFriend={handleAddFriend}
+          userId={userId}
+          />
       </div>
       {value ? searchingError && <div style={{color: "red"}}>{searchingError}</div> : null}
       <Menu data={links} toggleMenu={toggleMenu} isOpen={visionMenu} />

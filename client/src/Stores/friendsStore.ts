@@ -42,23 +42,26 @@ interface IFriendsStore {
     friends: User[]
     friendsError: string,
     isFriendsLoading: boolean,
+    getMyFriends: (userId: number) => void
 
     wannaBeFriends: User[]
     wannaBeFriendsError: string
     isWannaBeFriendsLoading: boolean
-    setSocketWannaBeFriends:(user: User) => void
+    // setSocketWannaBeFriends:(user: User) => void
     getFriendshipWannabes: (query: number) => void
 
     potentialFriends: User[]
     potentialFriendsError: string
     isPotentialFriendsLoading: boolean
-    setSocketPotentialFriends: (user: User) => void,
+    // setSocketPotentialFriends: (user: User) => void,
     setMakeFriendship: (receiverId: number, senderId: number) => void
+    getPotentialFriendship: (query: number) => void
+
 
     searchingFriends: User[]
     searchingError: string
     isSearchingLoading: boolean
-    getFriends: ({query}: {query: string} ) => void
+    getSearchingFriends: (query: string ) => void
 
     isAcceptFriendshipLoading: boolean,
     acceptFriendshipError: string,
@@ -92,14 +95,30 @@ export const useFriends = create<IFriendsStore>()(persist(devtools(immer((set) =
     isRejectFriendshipLoading: false,
     rejectFriendshipError: '',
 
-    setSocketPotentialFriends: (user) => {
-        set(state => state.potentialFriends.push(user))
-    },
-    setSocketWannaBeFriends: (user) => {
-        set(state => state.potentialFriends.push(user))
+    // setSocketPotentialFriends: (user) => {
+    //     set(state => state.potentialFriends.push(user))
+    // },
+    // setSocketWannaBeFriends: (user) => {
+    //     set(state => state.potentialFriends.push(user))
+    // },
+
+    getMyFriends: async (userId) => {
+        set({isFriendsLoading: true})
+        try {
+            const {data} = await $host.get<ICandidates>(`api/friend/all?userId=${userId}`)
+            console.log(data);
+            set({friends: data.candidates})
+        } catch (error) {
+            if (isAxiosError(error)) {
+                const err: AxiosError<AuthErrorType> = error
+                set({searchingError: err.response?.data.message})
+            }
+        } finally {
+            set({isFriendsLoading: false})
+        }
     },
 
-    getFriends: async ({query}) => {
+    getSearchingFriends: async (query) => {
         if (!query) {
             set({searchingFriends: []})
             return
@@ -141,7 +160,7 @@ export const useFriends = create<IFriendsStore>()(persist(devtools(immer((set) =
     getFriendshipWannabes: async (receiverId) => {
         set({isWannaBeFriendsLoading: true})
         try {
-            const {data} = await $host.get<ICandidates>(`api/friend/getfriendship?receiverId=${receiverId}`)
+            const {data} = await $host.get<ICandidates>(`api/friend/getRequestIncomming?receiverId=${receiverId}`)
             set({wannaBeFriends: data.candidates});
             console.log(data);
         } catch (error) {
@@ -153,11 +172,32 @@ export const useFriends = create<IFriendsStore>()(persist(devtools(immer((set) =
             set({isWannaBeFriendsLoading: false})
         }
     },
+    getPotentialFriendship: async (senderId) => {
+        set({isPotentialFriendsLoading: true})
+        try {
+            const {data} = await $host.get<ICandidates>(`api/friend/getRequestOutcomming?senderId=${senderId}`)
+            console.log(data);
+            set({potentialFriends: data.candidates});
+            console.log(data);
+        } catch (error) {
+            if (isAxiosError(error)) {
+                const err: AxiosError<AuthErrorType> = error
+                set({potentialFriendsError: err.response?.data.message})
+            }
+        } finally {
+            set({isPotentialFriendsLoading: false})
+        }
+    },
 
     acceptFriendship: async (receiverId, senderId) => {
         set({isAcceptFriendshipLoading: true})
         try {
-            const {data} = await $host.post(`api/friend/accept`, {receiverId, senderId})
+            const {data} = await $host.post<{message: string}>(`api/friend/accept`, {receiverId, senderId})
+            if (data) {
+                set((state) => {
+                    state.wannaBeFriends = state.wannaBeFriends.filter(friend => friend.id !== senderId)
+                });
+            }
             console.log('accept:', data);
         } catch (error) {
             if (isAxiosError(error)) {

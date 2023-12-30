@@ -20,9 +20,8 @@ const RequestsPage = () => {
   const potentialFriends = useFriends((state) => state.potentialFriends);
 
   const wannaBeFriends = useFriends((state) => state.wannaBeFriends);
-  const getFriendshipWannabes = useFriends(
-    (state) => state.getFriendshipWannabes
-  );
+  const getFriendshipWannabes = useFriends((state) => state.getFriendshipWannabes);
+  const getPotentialFriendship = useFriends((state) => state.getPotentialFriendship);
 
   const acceptFriendship = useFriends((state) => state.acceptFriendship);
   const rejectFriendship = useFriends((state) => state.rejectFriendship);
@@ -49,10 +48,12 @@ const RequestsPage = () => {
     if (activeTab === 'incoming') {
       getFriendshipWannabes(userId);
     } else {
-      console.log('lox');
+      getPotentialFriendship(userId);
     }
   }, [activeTab]);
 
+  
+  
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setActiveTab(e.target.value as TabType);
   };

@@ -13,7 +13,7 @@ const SlideSidebar = ({children}: {children: JSX.Element}) => {
     
   return (
         <div className={active === '/' ? "SlideSidebar": "SlideSidebar__active"}>
-                {children}
+            {children}
         </div>
     ) 
     
