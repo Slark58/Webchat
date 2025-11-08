@@ -40,6 +40,9 @@ Message.belongsTo(User)
 Chat.hasMany(Message)
 Message.belongsTo(Chat)
 
+FriendShips.hasMany(Message)
+Message.belongsTo(FriendShips)
+
 User.belongsToMany(User, {
     as: 'Sender',
     foreignKey: 'senderId',

@@ -25,3 +25,5 @@ dist-ssr
 
 # OS Variables
 .env
+
+/src/generated/prisma

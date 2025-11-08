@@ -17,11 +17,20 @@
     "jsonwebtoken": "^9.0.2",
     "pg": "^8.11.3",
     "pg-hstore": "^2.3.4",
+    "redis": "^5.9.0",
     "sequelize": "^6.33.0",
     "socket.io": "^4.7.2",
-    "ws": "^8.14.2"
+    "websocket": "^1.0.35",
+    "ws": "^8.18.3",
+    "wscat": "6.1.0"
   },
   "devDependencies": {
-    "nodemon": "^3.0.1"
+    "@prisma/client": "^6.19.0",
+    "@types/express": "^5.0.5",
+    "@types/node": "^24.10.0",
+    "nodemon": "^3.0.1",
+    "prisma": "^6.19.0",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
   }
 }

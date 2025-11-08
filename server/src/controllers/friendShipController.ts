@@ -22,13 +22,16 @@ class FriendShipController {
         }
 
         const friendIds = friendships.map((friendship) => {
-            if (friendship.senderId === userId) {
+            console.log(friendship.senderId);
+            if (friendship.senderId === parseInt(userId)) {
+                console.log('true');
               return friendship.receiverId;
             } else {
+                console.log('false');
               return friendship.senderId;
             }
           });
-
+          console.log(friendIds);
         const candidates = await User.findAll({
             where: { id: friendIds}, attributes: ['id', 'username'], // Поиск пользователей по senderId
         })
