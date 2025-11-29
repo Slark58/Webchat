@@ -1,12 +1,12 @@
 require('dotenv').config()
-const express = require('express')
-const sequelize = require('./db')
-const models = require('./models/models')
-const cors = require('cors')
-const router = require('./routes/index')
-const errorHandler = require('./middleware/ErrorHandlingMiddleware')
-const http = require('http')
-const { WebSocketServer } = require('ws')
+import express from 'express'
+import sequelize from './db'
+import models from './models/models'
+import cors from 'cors'
+import router from './routes/index'
+import errorHandler from './middleware/ErrorHandlingMiddleware'
+import http from 'http'
+import { WebSocketServer } from 'ws'
 
 
 const PORT = process.env.PORT || 5000

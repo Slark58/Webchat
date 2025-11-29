@@ -54,9 +54,9 @@ const RequestsPage = () => {
 
   
   
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setActiveTab(e.target.value as TabType);
-  };
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+      setActiveTab(e.target.value as TabType);
+    };
 
   return (
     <div className='requestsPage'>

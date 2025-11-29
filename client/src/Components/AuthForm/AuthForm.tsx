@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Paths } from '@/App/Routes/types/Paths';
 import { usePasswordVision } from '@/Utils';
 import { useAuth } from '@/Stores/userStore';
@@ -55,7 +55,7 @@ const AuthForm: FC<AuthFormProps> = ({ isSignup }) => {
       <form className='AuthForm__form' onSubmit={handleSubmit(onSubmit)}>
         <h1 className='AuthForm__title'>{isSignup ? 'Signup' : 'Login'}</h1>
         
-        {/* Username */}
+        //@ Username 
 
         {isSignup && (
           <div className='AuthForm__wrapper'>

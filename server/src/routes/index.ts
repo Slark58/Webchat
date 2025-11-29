@@ -1,8 +1,10 @@
-const Router = require('express')
+import Router from 'express'
+import userRouter from './userRouter'
+import chatRouter from './chatRouter'
+import friendRouter from './friendRouter'
+
 const router = new Router()
-const userRouter = require('./userRouter')
-const chatRouter = require('./chatRouter')
-const friendRouter = require('./friendRouter')
+
 
 router.use('/user', userRouter)
 router.use('/friend', friendRouter)

@@ -1,5 +1,5 @@
 import { ChangeEvent, useCallback, useEffect, useState } from 'react';
-import { Burger, ChatPreview, FriendsAndSearchingList, List, Loader, Menu, SlideSidebar } from '@/Components';
+import { Burger, ChatPreview, FriendsAndSearchingList, Loader, Menu, SlideSidebar } from '@/Components';
 import { Search, X } from 'lucide-react';
 import { links } from '@/Components/Menu/data';
 import { useDebounce } from '@/Utils/Hooks/useDebounce';
@@ -9,7 +9,7 @@ import { Outlet } from 'react-router-dom';
 
 import { useFriends } from '@/Stores/friendsStore';
 import './Sidebar.scss';
-import { useSocket } from '@/App/Providers/SocketProvaider';
+// import { useSocket } from '@/App/Providers/SocketProvaider';
 import {SideBarHeader} from '../Header/SideBarHeader/SideBarHeader';
 
 const Sidebar = () => {
@@ -18,7 +18,7 @@ const Sidebar = () => {
   const [value, setValue] = useState<string>('');
   // const [count, setCount] = useState<number>(0);
   const query = useDebounce(value)
-  const {socket} = useSocket() 
+  // const {socket} = useSocket() 
 
   const setMakeFriendship = useFriends(state => state.setMakeFriendship)
   const searchingFriends = useFriends(state => state.searchingFriends)
@@ -38,8 +38,9 @@ const Sidebar = () => {
   }, [query, getSearchingFriends])
   
   useEffect(() => {
+    console.log(userId);
     getMyFriends(userId)
-  }, [])
+  }, [userId])
 
   // const makeFriendHandle = (receiverId: number, senderId: number) => {
   //   socket?.emit('make_friend', {receiverId, senderId})
@@ -64,8 +65,6 @@ const Sidebar = () => {
   
   return (
     <div className='sidebar'>
-      
-      {/* <button onClick={() => setCount(state => state += 1)}>{count}</button> */}
       
       <SlideSidebar>
         <Outlet />

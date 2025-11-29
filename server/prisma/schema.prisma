@@ -8,11 +8,117 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum ConversationType {
+  direct
+  group
+}
+
+enum MessageStatus {
+  normal
+  edited
+  deleted
+}
+
+enum MemberRole {
+  owner
+  admin
+  member
+}
 
 model User {
-    id        Int      @id @default(autoincrement())
-    email     String   @unique
-    username  String
-    password  String
-    createdAt DateTime @default(now())
+  id           Int       @id @default(autoincrement())
+  phone        String    @unique
+  password     String
+  displayName  String?   @@map("display_name")   
+  createdAt    DateTime  @default(now()) @map("created_at")
+
+  conversations        Conversation[]        // created_by_user_id
+  conversationMembers  ConversationMember[]
+  conversationMessages ConversationMessage[]
+  contactsOwned        Contact[]            @relation("ContactsOwner")  // owner_user_id
+  contactsAsTarget     Contact[]            @relation("ContactsTarget") // target_user_id
+
+   @@map("users")
+}
+
+
+model Contact {
+  id           Int      @id @default(autoincrement())
+  ownerUserId  Int      @map("owner_user_id")
+  targetUserId Int      @map("target_user_id")
+  contactName  String   @map("contact_name")
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  ownerUser  User @relation("ContactsOwner",  fields: [ownerUserId],  references: [id])
+  targetUser User @relation("ContactsTarget", fields: [targetUserId], references: [id])
+
+  @@unique([ownerUserId, targetUserId])
+  @map("contacts")
+}
+
+model Conversation {
+  id             Int              @id @default(autoincrement())
+  type           ConversationType
+  title          String?
+  createdByUserId Int?            @map("created_by_user_id")
+  directKey      String?          @unique
+  createdAt      DateTime         @default(now())
+
+  // связи
+  createdByUser        User?                @relation(fields: [createdByUserId], references: [id])
+  conversationMembers  ConversationMember[]
+  conversationMessages ConversationMessage[]
+
+  @@map("conversation")
+}
+
+model Message {
+  id      Int            @id @default(autoincrement())
+  content String
+  status  MessageStatus
+  createdAt      DateTime  @default(now())
+
+
+  conversationMessages ConversationMessage[]
+  conversationMembers  ConversationMember[] // last_read_message_id
+
+  @@map("message")
+}
+
+
+model ConversationMessage {
+  id             Int       @id @default(autoincrement())
+  conversationId Int
+  messageId      Int
+  userId   Int
+  createdAt      DateTime  @default(now())
+
+  // связи
+  conversation Conversation @relation(fields: [conversationId], references: [id])
+  message      Message      @relation(fields: [messageId],      references: [id])
+  user         User         @relation(fields: [userId],         references: [id])
+
+  @@map("conversation_messages")
+}
+
+
+model ConversationMember {
+  id             Int        @id @default(autoincrement())
+  conversationId Int        @map("conversation_id")
+  userId         Int        @map("user_id")
+  role           MemberRole @default(member)
+  joinedAt       DateTime   @default(now())
+  lastReadMessageId Int?    @map("last_read_message_id")
+  isMuted        Boolean    @map("is_muted") @default(false)
+  createdAt      DateTime  @default(now())
+
+
+  // связи
+  lastReadMessage Message?  @relation(fields: [lastReadMessageId], references: [id])
+  conversation Conversation @relation(fields: [conversationId], references: [id])
+  user         User         @relation(fields: [userId],        references: [id])
+
+
+  @@map("conversation_members")
+  @@unique([conversationId, userId])
 }
